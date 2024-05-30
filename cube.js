@@ -21,7 +21,7 @@ renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
 const composer = new EffectComposer(renderer);
-const renderPixelatedPass = new RenderPixelatedPass(3, scene, camera);
+const renderPixelatedPass = new RenderPixelatedPass(4, scene, camera);
 composer.addPass(renderPixelatedPass);
 
 const outputPass = new OutputPass();
@@ -30,7 +30,8 @@ composer.addPass(outputPass);
 const controls = new OrbitControls(camera, renderer.domElement);
 controls.maxZoom = 2;
 
-const texture = new THREE.TextureLoader().load("/texture1.png");
+const loader = new THREE.TextureLoader();
+const texture = pixelTexture(loader.load("/texture1.png"));
 
 const geometry = new THREE.BoxGeometry(1, 1, 1);
 const material = new THREE.MeshBasicMaterial({ map: texture });
@@ -47,6 +48,16 @@ function animate() {
 
   renderer.render(scene, camera);
   composer.render();
+}
+
+function pixelTexture(texture) {
+  texture.minFilter = THREE.NearestFilter;
+  texture.magFilter = THREE.NearestFilter;
+  texture.generateMipmaps = false;
+  texture.wrapS = THREE.RepeatWrapping;
+  texture.wrapT = THREE.RepeatWrapping;
+  texture.colorSpace = THREE.SRGBColorSpace;
+  return texture;
 }
 
 if (WebGL.isWebGLAvailable()) {
