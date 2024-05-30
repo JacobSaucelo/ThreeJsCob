@@ -33,10 +33,10 @@ controls.maxZoom = 2;
 const loader = new THREE.TextureLoader();
 const texture = pixelTexture(loader.load("/texture2.png"));
 
-// const geometry = new THREE.BoxGeometry(1, 1, 1);
-// const material = new THREE.MeshBasicMaterial({ map: texture });
-// const cube = new THREE.Mesh(geometry, material);
-// scene.add(cube);
+const geometry = new THREE.BoxGeometry(1, 1, 1);
+const material = new THREE.MeshBasicMaterial({ map: texture });
+const cube = new THREE.Mesh(geometry, material);
+scene.add(cube);
 
 // const radius = 0.7;
 // const geometry2 = new THREE.IcosahedronGeometry(radius);
@@ -53,20 +53,18 @@ const texture = pixelTexture(loader.load("/texture2.png"));
 // crystalMesh.castShadow = true;
 // scene.add(crystalMesh);
 
-const geometry3 = new THREE.TorusKnotGeometry(10, 3, 100, 16);
-const material = new THREE.MeshBasicMaterial({ color: 0xffff00 });
-const torusKnot = new THREE.Mesh(geometry3, material);
-scene.add(torusKnot);
+// const geometry3 = new THREE.TorusKnotGeometry(10, 3, 100, 16);
+// const material = new THREE.MeshBasicMaterial({ color: 0xffff00 });
+// const torusKnot = new THREE.Mesh(geometry, material);
+// scene.add(torusKnot);
 
-camera.position.z = 6;
+camera.position.z = 4;
 
 function animate() {
   requestAnimationFrame(animate);
 
-  // cube.rotation.x += 0.01;
-  // cube.rotation.y += 0.01;
-  torusKnot.rotation.x += 0.01;
-  torusKnot.rotation.y += 0.01;
+  cube.rotation.x += 0.01;
+  cube.rotation.y += 0.01;
 
   renderer.render(scene, camera);
   composer.render();
